@@ -13,5 +13,13 @@
     "tailwind"
   ],
   "author": "Claiton Lemes",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claitonllemes/Sketch-Plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/claitonllemes/Sketch-Plugin/issues"
+  },
+  "homepage": "https://github.com/claitonllemes/Sketch-Plugin#readme"
 }

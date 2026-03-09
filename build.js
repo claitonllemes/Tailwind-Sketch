@@ -13,7 +13,7 @@ const manifest = {
   "homepage": "",
   "version": "1.0.0",
   "identifier": "tailwind-colors",
-  "appcast": "https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/.appcast.json",
+  "appcast": "https://raw.githubusercontent.com/claitonllemes/Sketch-Plugin/main/.appcast.json",
   "compatibleVersion": "70",
   "icon": "icon.png",
   "commands": [
