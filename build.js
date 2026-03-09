@@ -11,7 +11,7 @@ const manifest = {
   "author": "Claiton Lemes",
   "authorEmail": "contato@claitonlemes.com.br",
   "homepage": "",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "identifier": "tailwind-colors",
   "appcast": "https://raw.githubusercontent.com/claitonllemes/Sketch-Plugin/main/.appcast.json",
   "compatibleVersion": "70",
@@ -63,9 +63,6 @@ var onRun = function(context) {
     return '#' + [R, G, B].map(v => v.toString(16).padStart(2, '0')).join('')
   }
 
-  // ✅ LIMPA todas as swatches existentes
-  doc.swatches = []
-
   const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 
   // ✅ Tailwind Colors
@@ -102,16 +99,26 @@ var onRun = function(context) {
     { group: '27 - Olive',   values: [[98.8,0.003,106.5],[96.6,0.005,106.5],[93,0.007,106.5],[88,0.011,106.6],[73.7,0.021,106.9],[58,0.031,107.3],[46.6,0.025,107.3],[39.4,0.023,107.4],[28.6,0.016,107.4],[22.8,0.013,107.4],[15.3,0.006,107.1]] },
   ]
 
+  // ✅ Identifica os grupos de cores do Tailwind
+  const tailwindGroups = palette.map(p => p.group)
+
+  // ✅ Filtra swatches existentes que NÃO pertencem ao Tailwind (preserva cores do usuário)
+  const userSwatches = doc.swatches.filter(swatch => 
+    !tailwindGroups.some(group => swatch.name.startsWith(group))
+  )
+
+  const newSwatches = []
   let count = 0
+
   palette.forEach(entry => {
     if (entry.special) {
       entry.special.forEach(({ name, hex }) => {
-        doc.swatches.push(sketchModule.Swatch.from({ name, color: hex }))
+        newSwatches.push(sketchModule.Swatch.from({ name, color: hex }))
         count++
       })
     } else {
       entry.values.forEach((oklch, i) => {
-        doc.swatches.push(sketchModule.Swatch.from({
+        newSwatches.push(sketchModule.Swatch.from({
           name: \`\${entry.group}/\${shades[i]}\`,
           color: oklchToHex(oklch[0], oklch[1], oklch[2])
         }))
@@ -120,7 +127,10 @@ var onRun = function(context) {
     }
   })
 
-  UI.message(\`✅ \${count} cores Tailwind 4 importadas!\`)
+  // ✅ Combina cores do usuário + novas cores do Tailwind
+  doc.swatches = userSwatches.concat(newSwatches)
+
+  UI.message(\`✅ \${count} cores Tailwind 4 importadas/atualizadas!\`)
 }
 `;
 
