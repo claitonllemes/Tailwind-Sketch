@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Bun
+bun.lockb
+.bun/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Editor
+.vscode/
+.idea/
+
+# Plugin Build
+*.sketchplugin/
+*.zip
+
+# Appcast (Keep versioned!)
+!.appcast.json
