@@ -46,3 +46,4 @@ Para contribuir ou modificar o plugin:
 2. Execute `npm run release`.
 3. Faça commit das alterações (incluindo `.appcast.json`).
 4. Crie uma Release no GitHub anexando o `.zip` gerado.
+
